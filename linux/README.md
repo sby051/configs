@@ -5,4 +5,6 @@ configures various things, such as fish shell (alongside aliases etc, which can 
 found in assets/config.fish).
 
 To use this script, simply run:
-``curl https://raw.githubusercontent.com/sby051/configs/main/linux/setup.sh | bash``
+```bash
+curl https://raw.githubusercontent.com/sby051/configs/main/linux/setup.sh | bash
+```
