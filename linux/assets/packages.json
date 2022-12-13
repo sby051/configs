@@ -1,0 +1,23 @@
+{
+    "apt": [
+        "fish",
+        "nmap",
+        "gobuster",
+        "exa",
+        "hashcat",
+        "hydra",
+        "sqlmap",
+        "traceroute",
+        "whois",
+        "openvpn",
+        "locate",
+        "curl",
+        "wget",
+        "netcat",
+        "openjdk-17-jdk-headless",
+        "openvpn",
+        "bat"
+    ],
+    "custom": ["curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash"],
+    "fish": ["jorgebucaran/nvm.fish", "pure-fish/pure"]
+}

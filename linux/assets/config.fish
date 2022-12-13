@@ -1,9 +1,3 @@
-# Start up commands
-cd
-clear
-nvm use node
-
-# Aliases
 alias apt="aptitude"
 alias apt-uu="sudo apt update && sudo apt upgrade -y"
 alias apt-uuu="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y"
@@ -33,26 +27,20 @@ alias python="python3.11"
 alias py="python"
 alias pip="pip3"
 alias nmap!="nmap -v -sC -sV -oN nmap.log $1"
+alias cat="batcat"
 alias gobuster!="gobuster dir -u $1 -w ~/repos/pentesting/tools/wordlists/directory/directory-list.txt -o gobuster.log"
 
-# Functions
-function fish_prompt -d "Write out the prompt"
-    set_color 333942
-    echo -n "┌──("
-    set_color green
-    echo -n $USER
-    echo -n "@"
-    echo -n $hostname
-    set_color 333942
-    echo -n ")──["
-    set_color blue
-    echo -n (prompt_pwd)
-    set_color 333942
-    echo -n "]"
-    set_color yellow
-    echo (fish_git_prompt)
-    set_color 333942
-    echo -n "└─"
-    set_color normal
-    echo -n "\$ "
-end
+starship init fish | source
+nvm use latest
+cd
+clear
+
+# flutter
+set -gx FLUTTER_DIR "/opt/flutter/bin"
+set -gx PATH "$FLUTTER_DIR" $PATH
+# flutter end
+
+# rust / cargo
+set -gx CARGO_DIR "/opt/cargo/bin"
+set -gx PATH "$CARGO_DIR" $PATH
+# rust / cargo end
