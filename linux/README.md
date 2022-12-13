@@ -12,5 +12,5 @@ curl https://raw.githubusercontent.com/sby051/configs/main/linux/setup.sh | bash
 or more conveniently
 
 ```bash
-curl https://tinyurl.com/linconf | bash
+curl -L https://tinyurl.com/linconf | bash
 ```
