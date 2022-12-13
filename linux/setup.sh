@@ -1,9 +1,13 @@
 #!/bin/bash
 
-sudo apt update -y 
-sudo apt upgrade -y
-sudo apt install python3.11 -y
-sudo apt install python3-pip -y
-git clone https://github.com/sby051/configs.git ~/repos/configs
-cd ~/repos/configs/linux
-sudo python3.11 main.py
+echo "Installing initial dependencies..."
+sudo apt update -y -qq
+sudo apt upgrade -y -qq
+sudo apt install python3.11 -y -qq
+sudo apt install python3-pip -y -qq
+mkdir -p $HOME/repos
+cd $HOME/repos
+git clone https://github.com/sby051/configs.git
+cd configs/linux
+python3.11 main.py
+cd
