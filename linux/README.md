@@ -14,3 +14,6 @@ or more conveniently
 ```bash
 curl -L https://tinyurl.com/linconf | bash
 ```
+
+All externally installed programs (such as manually installed with curl etc) should be placed in
+the ```/opt``` directory.
