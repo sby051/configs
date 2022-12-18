@@ -54,5 +54,4 @@ alias gobuster!="gobuster dir -u $1 -w ~/repos/pentesting/tools/wordlists/direct
 
 # Startup commands
 nvm use latest
-cd
 clear
