@@ -100,12 +100,12 @@ def main():
         print(f"! {LOCAL_FISH_CONFIG_FILE_PATH} could not be sourced.")
     
     
-    # print("- Installing fisher...")
-    # call(["curl", "-sL", "https://git.io/fisher", "|", "sh -"])
-    # print_title("installing fisher plugins", divider="=")
+    print("- Installing fisher...")
+    system("curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher")
+    print_title("installing fisher plugins", divider="=")
     
-    # for plugin in packages["fish"]:
-    #     call(["fish", "-c", f"fisher install {plugin}"])
+    for plugin in packages["fish"]:
+        call(["fish", "-c", f"fisher install {plugin}"])
     
     print_title("done")
     
