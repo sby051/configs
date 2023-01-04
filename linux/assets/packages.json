@@ -19,5 +19,5 @@
         "bat"
     ],
     "custom": [],
-    "fish": ["jorgebucaran/nvm.fish", "pure-fish/pure"]
+    "fisher": ["jorgebucaran/nvm.fish", "pure-fish/pure", "franciscolourenco/done"]
 }

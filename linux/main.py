@@ -111,7 +111,7 @@ def main():
     print("- Installing fisher...")
     system("curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher")
     print_title("installing fisher plugins", divider="=")
-    for plugin in packages["fish"]:
+    for plugin in packages["fisher"]:
         call(["fish", "-c", f"fisher install {plugin}"])
     
     print_title("done")
