@@ -4,11 +4,6 @@
 set -gx FISH_CONFIG_FILE = "$FISH_CONFIG_DIR/config.fish"
 # fish end
 
-# flutter
-set -gx FLUTTER_DIR "/opt/flutter/bin"
-set -gx PATH "$FLUTTER_DIR" $PATH
-# flutter end
-
 # rust / cargo
 set -gx CARGO_DIR "/opt/cargo/bin"
 set -gx PATH "$CARGO_DIR" $PATH
