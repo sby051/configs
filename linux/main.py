@@ -10,7 +10,7 @@ HOME_DIR = getenv("HOME")
 CURRENT_USER = getenv("USER")
 TERMINAL_WIDTH = get_terminal_size().columns
 ASSETS_DIR = "./assets"
-ASSETS_PACKAGES_FILE = f"{ASSETS_DIR}/packages.json"
+ASSETS_PACKAGES_FILE = f"{ASSETS_DIR}/PACKAGES.json"
 ASSETS_FISH_CONFIG_FILE = f"{ASSETS_DIR}/config.fish"
 LOCAL_FISH_CONFIG_FILE_PATH = f"{HOME_DIR}/.config/fish/config.fish"
 NEW_USER_NAME = "sby051"
@@ -20,9 +20,9 @@ def print_title(title, divider="-") -> None:
     print(f" {title.upper()} ".center(TERMINAL_WIDTH, divider))
     print("\n")
 
-def is_installed(package_name: str) -> bool:
+def is_installed(apt_package_name: str) -> bool:
     try:
-        return "Status: install ok installed" in check_output(["dpkg", "-s", package_name]).decode("utf-8")
+        return "Status: install ok installed" in check_output(["dpkg", "-s", apt_package_name]).decode("utf-8")
     except:
         return False
     
@@ -37,7 +37,7 @@ def main():
     
     try:
         with open(ASSETS_PACKAGES_FILE, "r") as file:
-            packages = load(file)
+            PACKAGES = load(file)
             print(f"+ '{ASSETS_PACKAGES_FILE}' loaded successfully.")
     except FileNotFoundError:
         print(f"! '{ASSETS_PACKAGES_FILE}' could not be found. Maybe reclone the repo?")
@@ -48,9 +48,9 @@ def main():
     
     while True:
         print("\nThis script will install the following:")
-        print("\n- Apt packages:", ", ".join(packages["apt"]))
-        print("\n- Custom packages:", ", ".join(packages["custom"]))
-        print("\n- Fish plugins:", ", ".join(packages["fish"]))
+        print("\n- Apt PACKAGES:", ", ".join(PACKAGES["apt"]))
+        print("\n- Custom PACKAGES:", ", ".join(PACKAGES["dpkg"]))
+        print("\n- Fish plugins:", ", ".join(PACKAGES["fisher"]))
         print(f"\nIt will configure a new user named {NEW_USER_NAME}, and will configure it to use fish shell.")
         choice = input("\nWould you like to continue? [y/n]: ")
         if choice.lower() == "y":
@@ -59,23 +59,31 @@ def main():
         exit(0)
         
             
-    print_title("installing apt packages", divider="=")
-    for package in packages["apt"]:
-        if is_installed(package):
-            print(f"- '{package}' is already installed.")
+    print_title("installing apt PACKAGES", divider="=")
+    for apt_package in PACKAGES["apt"]:
+        if is_installed(apt_package):
+            print(f"- '{apt_package}' is already installed.")
             continue
         
-        print(f"> '{package}' not found, installing...")
+        print(f"> '{apt_package}' not found, installing...")
         try:
-            call(["sudo", "apt", "install", "-y", "-qq", "-o", "Dpkg::Use-Pty=0", package])
-            print(f"+ '{package}' installed successfully.")
+            call(["sudo", "apt", "install", "-y", "-qq", "-o", "Dpkg::Use-Pty=0", apt_package])
+            print(f"+ '{apt_package}' installed successfully.")
         except:
-            print(f"! '{package}' could not be installed.")
+            print(f"! '{apt_package}' could not be installed.")
         
-    print_title("installing custom packages", divider="=")
-    for cmd in packages["custom"]:
-        print(f"+ Running {cmd}...")
-        system(cmd)
+    print_title("installing dpkg PACKAGES", divider="=")
+    for dpkg_package in PACKAGES["dpkg"]:
+        if is_installed(dpkg_package):
+            print(f"- '{dpkg_package}' is already installed.")
+            continue
+        
+        print(f"> '{dpkg_package}' not found, installing...")
+        try:
+            call(["sudo", "dpkg", "-i", dpkg_package])
+            print(f"+ '{dpkg_package}' installed successfully.")
+        except:
+            print(f"! '{dpkg_package}' could not be installed.")
         
     print_title("configuring user", divider="=")
     LOCAL_FISH_BINARY_PATH = check_output(["which", "fish"]).decode("utf-8").strip()
@@ -111,7 +119,7 @@ def main():
     print("- Installing fisher...")
     system("curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher")
     print_title("installing fisher plugins", divider="=")
-    for plugin in packages["fisher"]:
+    for plugin in PACKAGES["fisher"]:
         call(["fish", "-c", f"fisher install {plugin}"])
     
     print_title("done")

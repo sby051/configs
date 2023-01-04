@@ -1,6 +1,6 @@
 # How to use
 
-This script installs many packages (which you can find in assets/packages.json) and
+This script installs many PACKAGES (which you can find in assets/PACKAGES.json) and
 configures various things, such as fish shell (alongside aliases etc, which can be
 found in assets/config.fish).
 

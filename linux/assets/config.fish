@@ -47,6 +47,7 @@ alias nmap!="nmap -v -sC -sV -oN nmap.log $1"
 alias cat="batcat"
 alias home="cd && clear"
 alias gobuster!="gobuster dir -u $1 -w ~/repos/pentesting/tools/wordlists/directory/directory-list.txt -o gobuster.log"
+alias untar="tar xf"
 
 # Startup commands
 nvm use latest

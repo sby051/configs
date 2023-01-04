@@ -18,6 +18,6 @@
         "openvpn",
         "bat"
     ],
-    "custom": [],
+    "dpkg": ["https://github.com/RustScan/RustScan/archive/refs/tags/2.1.1.tar.gz"],
     "fisher": ["jorgebucaran/nvm.fish", "pure-fish/pure", "franciscolourenco/done"]
 }
