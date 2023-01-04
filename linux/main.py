@@ -13,7 +13,7 @@ ASSETS_DIR = "./assets"
 ASSETS_PACKAGES_FILE = f"{ASSETS_DIR}/packages.json"
 ASSETS_FISH_CONFIG_FILE = f"{ASSETS_DIR}/config.fish"
 LOCAL_FISH_CONFIG_FILE_PATH = f"{HOME_DIR}/.config/fish/config.fish"
-
+NEW_USER_NAME = "sby051"
 
 def print_title(title, divider="-") -> None:
     print("\n")
@@ -51,13 +51,14 @@ def main():
         print("\n- Apt packages:", ", ".join(packages["apt"]))
         print("\n- Custom packages:", ", ".join(packages["custom"]))
         print("\n- Fish plugins:", ", ".join(packages["fish"]))
-        print("\nIt will also configure fish shell for you (aliases etc)")
+        print(f"\nIt will configure a new user named {NEW_USER_NAME}, and will configure it to use fish shell.")
         choice = input("\nWould you like to continue? [y/n]: ")
         if choice.lower() == "y":
             break
         print_title("exiting")
         exit(0)
         
+            
     print_title("installing apt packages", divider="=")
     for package in packages["apt"]:
         if is_installed(package):
@@ -76,8 +77,15 @@ def main():
         print(f"+ Running {cmd}...")
         system(cmd)
         
-    print_title("configuring fish shell", divider="=")
+    print_title("configuring user", divider="=")
     LOCAL_FISH_BINARY_PATH = check_output(["which", "fish"]).decode("utf-8").strip()
+    
+    try:
+        print(f"- Creating new user {NEW_USER_NAME}...")
+        call(["sudo", "useradd", "-m", "-s", LOCAL_FISH_BINARY_PATH, NEW_USER_NAME])
+    except:
+        print(f"! New user {NEW_USER_NAME} could not be created.")
+
     try:
         print(f"- Changing default shell to {LOCAL_FISH_BINARY_PATH}...")
         call(["sudo", "chsh", "-s", LOCAL_FISH_BINARY_PATH, CURRENT_USER])
@@ -103,7 +111,6 @@ def main():
     print("- Installing fisher...")
     system("curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher")
     print_title("installing fisher plugins", divider="=")
-    
     for plugin in packages["fish"]:
         call(["fish", "-c", f"fisher install {plugin}"])
     
