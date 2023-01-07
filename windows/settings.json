@@ -8,12 +8,8 @@
             "keys": "ctrl+shift+f"
         },
         {
-            "command": 
-            {
-                "action": "copy",
-                "singleLine": false
-            },
-            "keys": "ctrl+c"
+            "command": "paste",
+            "keys": "ctrl+v"
         },
         {
             "command": 
@@ -24,8 +20,16 @@
             "keys": "alt+j"
         },
         {
-            "command": "paste",
-            "keys": "ctrl+v"
+            "command": 
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
+        },
+        {
+            "command": "closePane",
+            "keys": "alt+q"
         },
         {
             "command": "unbound",
@@ -48,10 +52,6 @@
             "keys": "ctrl+comma"
         },
         {
-            "command": "closePane",
-            "keys": "alt+q"
-        },
-        {
             "command": 
             {
                 "action": "splitPane",
@@ -62,17 +62,17 @@
         {
             "command": 
             {
-                "action": "commandPalette"
-            }
-        },
-        {
-            "command": 
-            {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
             },
             "keys": "alt+shift+d"
+        },
+        {
+            "command": 
+            {
+                "action": "commandPalette"
+            }
         },
         {
             "command": 
@@ -135,9 +135,19 @@
                 "guid": "{b292e819-8f14-48b1-bf3b-d0c387ffb73b}",
                 "hidden": false,
                 "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-                "name": "WSL - Ubuntu",
+                "name": "WSL: Ubuntu",
                 "startingDirectory": "~",
                 "tabTitle": null
+            },
+            {
+                "colorScheme": "Scylla",
+                "commandline": "C:\\Program Files\\PowerShell\\7\\pwsh.exe -Command \"ssh root@vm.cloud-dev.sby051.live\"",
+                "elevate": false,
+                "guid": "{ee07c2e8-6645-41b4-95b0-1056aa59dd83}",
+                "hidden": false,
+                "icon": "ms-appx:///ProfileIcons/pwsh.png",
+                "name": "SSH: cloud-vm",
+                "startingDirectory": "D:\\"
             }
         ]
     },
