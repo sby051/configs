@@ -7,7 +7,6 @@ sudo apt upgrade -y -qq
 
 # install python3
 echo "Installing python3..."
-sudo add-apt-repository ppa:deadsnakes/ppa -y -qq
 sudo apt install python3 -y -qq
 sudo apt install python3-pip -y -qq
 

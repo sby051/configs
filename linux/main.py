@@ -1,5 +1,3 @@
-#!/usr/bin/python3.11
-
 from subprocess import call, check_output
 from shutil import copyfile, get_terminal_size
 from os import getenv, system
@@ -10,10 +8,9 @@ HOME_DIR = getenv("HOME")
 CURRENT_USER = getenv("USER")
 TERMINAL_WIDTH = get_terminal_size().columns
 ASSETS_DIR = "./assets"
-ASSETS_PACKAGES_FILE = f"{ASSETS_DIR}/PACKAGES.json"
+ASSETS_PACKAGES_FILE = f"{ASSETS_DIR}/packages.json"
 ASSETS_FISH_CONFIG_FILE = f"{ASSETS_DIR}/config.fish"
 LOCAL_FISH_CONFIG_FILE_PATH = f"{HOME_DIR}/.config/fish/config.fish"
-NEW_USER_NAME = "sby051"
 
 def print_title(title, divider="-") -> None:
     print("\n")
@@ -25,7 +22,7 @@ def is_installed(apt_package_name: str) -> bool:
         return "Status: install ok installed" in check_output(["dpkg", "-s", apt_package_name]).decode("utf-8")
     except:
         return False
-    
+        
 def clear_screen():
     call(["clear"])
 
@@ -51,7 +48,7 @@ def main():
         print("\n- Apt PACKAGES:", ", ".join(PACKAGES["apt"]))
         print("\n- Custom PACKAGES:", ", ".join(PACKAGES["dpkg"]))
         print("\n- Fish plugins:", ", ".join(PACKAGES["fisher"]))
-        print(f"\nIt will configure a new user named {NEW_USER_NAME}, and will configure it to use fish shell.")
+        print(f"\nIt will also configure fish for user {CURRENT_USER}, alongside configuration of aliases and functions.")
         choice = input("\nWould you like to continue? [y/n]: ")
         if choice.lower() == "y":
             break
@@ -89,12 +86,6 @@ def main():
     LOCAL_FISH_BINARY_PATH = check_output(["which", "fish"]).decode("utf-8").strip()
     
     try:
-        print(f"- Creating new user {NEW_USER_NAME}...")
-        call(["sudo", "useradd", "-m", "-s", LOCAL_FISH_BINARY_PATH, NEW_USER_NAME])
-    except:
-        print(f"! New user {NEW_USER_NAME} could not be created.")
-
-    try:
         print(f"- Changing default shell to {LOCAL_FISH_BINARY_PATH}...")
         call(["sudo", "chsh", "-s", LOCAL_FISH_BINARY_PATH, CURRENT_USER])
         print(f"+ Default shell changed to {LOCAL_FISH_BINARY_PATH}")
@@ -117,7 +108,11 @@ def main():
     
     
     print("- Installing fisher...")
-    system("curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher")
+    try:
+        system("curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher", shell=True)
+    except:
+        print("! fisher could not be installed.")
+        
     print_title("installing fisher plugins", divider="=")
     for plugin in PACKAGES["fisher"]:
         call(["fish", "-c", f"fisher install {plugin}"])
