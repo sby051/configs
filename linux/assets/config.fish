@@ -1,5 +1,9 @@
 # environment variables
 
+# lazygit
+set -gx LAZYGIT_VERSION (curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep '"tag_name":' |  sed -E 's/.*"v*([^"]+)".*/\1/')
+# lazygit end
+
 # fish
 set -gx FISH_CONFIG_FILE "/root/.config/fish/config.fish"
 # fish end
