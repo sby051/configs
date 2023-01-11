@@ -21,6 +21,7 @@ set -gx PATH "$CMAKE_DIR" $PATH
 # cmake end
 
 # aliases
+alias lg "lazygit"
 alias apt "aptitude"
 alias apt-uu "sudo apt update && sudo apt upgrade -y"
 alias apt-uuu "sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y"
